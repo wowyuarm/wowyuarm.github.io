@@ -1,0 +1,447 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 7.3.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.gif">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.ico">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.ico">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha256-5eIC48iZUHmSlSUz9XtjRyK2mzQkHScZY1WdMaoz74E=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"www.wowyuarm.top","root":"/","images":"/images","scheme":"Gemini","darkmode":false,"version":"8.21.1","exturl":false,"sidebar":{"position":"left","width_expanded":320,"width_dual_column":240,"display":"post","padding":18,"offset":12},"hljswrap":true,"copycode":{"enable":false,"style":null},"fold":{"enable":false,"height":500},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"duration":200,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="01 阅读了几篇系统讨论AI Agent的文章，选了2篇（来自Google与Anthropic）来思考探讨。 本文分别简要讨论这两篇（在03、04展开），并融合我的个人思考。 我们去看一看真正的AI时代——AI Agent（我更倾向于叫做智能体而非AI代理）">
+<meta property="og:type" content="article">
+<meta property="og:title" content="从Google与Anthropic看2025 Agent势不可挡的爆发——AI时代的入口">
+<meta property="og:url" content="http://www.wowyuarm.top/2025/01/19/%E4%BB%8EGoogle%E4%B8%8EAnthropic%E7%9C%8B2025%20Agent%E5%8A%BF%E4%B8%8D%E5%8F%AF%E6%8C%A1%E7%9A%84%E7%88%86%E5%8F%91%E2%80%94%E2%80%94AI%E6%97%B6%E4%BB%A3%E7%9A%84%E5%85%A5%E5%8F%A3/index.html">
+<meta property="og:site_name" content="云隐孤星">
+<meta property="og:description" content="01 阅读了几篇系统讨论AI Agent的文章，选了2篇（来自Google与Anthropic）来思考探讨。 本文分别简要讨论这两篇（在03、04展开），并融合我的个人思考。 我们去看一看真正的AI时代——AI Agent（我更倾向于叫做智能体而非AI代理）">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://www.wowyuarm.top/2025/01/19/%E4%BB%8EGoogle%E4%B8%8EAnthropic%E7%9C%8B2025%20Agent%E5%8A%BF%E4%B8%8D%E5%8F%AF%E6%8C%A1%E7%9A%84%E7%88%86%E5%8F%91%E2%80%94%E2%80%94AI%E6%97%B6%E4%BB%A3%E7%9A%84%E5%85%A5%E5%8F%A3/640.webp">
+<meta property="og:image" content="http://www.wowyuarm.top/2025/01/19/%E4%BB%8EGoogle%E4%B8%8EAnthropic%E7%9C%8B2025%20Agent%E5%8A%BF%E4%B8%8D%E5%8F%AF%E6%8C%A1%E7%9A%84%E7%88%86%E5%8F%91%E2%80%94%E2%80%94AI%E6%97%B6%E4%BB%A3%E7%9A%84%E5%85%A5%E5%8F%A3/640-17374390055741.webp">
+<meta property="og:image" content="http://www.wowyuarm.top/2025/01/19/%E4%BB%8EGoogle%E4%B8%8EAnthropic%E7%9C%8B2025%20Agent%E5%8A%BF%E4%B8%8D%E5%8F%AF%E6%8C%A1%E7%9A%84%E7%88%86%E5%8F%91%E2%80%94%E2%80%94AI%E6%97%B6%E4%BB%A3%E7%9A%84%E5%85%A5%E5%8F%A3/640-17374390055752.webp">
+<meta property="article:published_time" content="2025-01-19T14:54:23.000Z">
+<meta property="article:modified_time" content="2025-01-21T05:57:28.448Z">
+<meta property="article:author" content="wowyuarm">
+<meta property="article:tag" content="AI">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://www.wowyuarm.top/2025/01/19/%E4%BB%8EGoogle%E4%B8%8EAnthropic%E7%9C%8B2025%20Agent%E5%8A%BF%E4%B8%8D%E5%8F%AF%E6%8C%A1%E7%9A%84%E7%88%86%E5%8F%91%E2%80%94%E2%80%94AI%E6%97%B6%E4%BB%A3%E7%9A%84%E5%85%A5%E5%8F%A3/640.webp">
+
+
+<link rel="canonical" href="http://www.wowyuarm.top/2025/01/19/%E4%BB%8EGoogle%E4%B8%8EAnthropic%E7%9C%8B2025%20Agent%E5%8A%BF%E4%B8%8D%E5%8F%AF%E6%8C%A1%E7%9A%84%E7%88%86%E5%8F%91%E2%80%94%E2%80%94AI%E6%97%B6%E4%BB%A3%E7%9A%84%E5%85%A5%E5%8F%A3/">
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"http://www.wowyuarm.top/2025/01/19/%E4%BB%8EGoogle%E4%B8%8EAnthropic%E7%9C%8B2025%20Agent%E5%8A%BF%E4%B8%8D%E5%8F%AF%E6%8C%A1%E7%9A%84%E7%88%86%E5%8F%91%E2%80%94%E2%80%94AI%E6%97%B6%E4%BB%A3%E7%9A%84%E5%85%A5%E5%8F%A3/","path":"2025/01/19/从Google与Anthropic看2025 Agent势不可挡的爆发——AI时代的入口/","title":"从Google与Anthropic看2025 Agent势不可挡的爆发——AI时代的入口"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>从Google与Anthropic看2025 Agent势不可挡的爆发——AI时代的入口 | 云隐孤星</title>
+  
+
+
+
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">云隐孤星</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">朋友，你好！</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="搜索" role="button">
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li>
+  </ul>
+</nav>
+
+
+
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-overview-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="wowyuarm"
+      src="/images/avatar.gif">
+  <p class="site-author-name" itemprop="name">wowyuarm</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">7</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">2</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/wowyuarm" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;wowyuarm" rel="noopener me" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:wuyuang05@outlook.com" title="E-Mail → mailto:wuyuang05@outlook.com" rel="noopener me" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+        </div>
+      </div>
+    </div>
+
+    
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://www.wowyuarm.top/2025/01/19/%E4%BB%8EGoogle%E4%B8%8EAnthropic%E7%9C%8B2025%20Agent%E5%8A%BF%E4%B8%8D%E5%8F%AF%E6%8C%A1%E7%9A%84%E7%88%86%E5%8F%91%E2%80%94%E2%80%94AI%E6%97%B6%E4%BB%A3%E7%9A%84%E5%85%A5%E5%8F%A3/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="wowyuarm">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="云隐孤星">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="从Google与Anthropic看2025 Agent势不可挡的爆发——AI时代的入口 | 云隐孤星">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          从Google与Anthropic看2025 Agent势不可挡的爆发——AI时代的入口
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2025-01-19 22:54:23" itemprop="dateCreated datePublished" datetime="2025-01-19T22:54:23+08:00">2025-01-19</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2025-01-21 13:57:28" itemprop="dateModified" datetime="2025-01-21T13:57:28+08:00">2025-01-21</time>
+    </span>
+
+  
+    <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span id="busuanzi_value_page_pv"></span>
+    </span>
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>3k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>5 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><p><strong>01</strong></p>
+<p>阅读了几篇系统讨论AI Agent的文章，选了2篇（来自Google与Anthropic）来思考探讨。</p>
+<p>本文分别简要讨论这两篇（在03、04展开），并融合我的个人思考。</p>
+<p>我们去看一看真正的AI时代——<strong>AI Agent</strong>（我更倾向于叫做智能体而非AI代理）</p>
+<img src="/2025/01/19/%E4%BB%8EGoogle%E4%B8%8EAnthropic%E7%9C%8B2025%20Agent%E5%8A%BF%E4%B8%8D%E5%8F%AF%E6%8C%A1%E7%9A%84%E7%88%86%E5%8F%91%E2%80%94%E2%80%94AI%E6%97%B6%E4%BB%A3%E7%9A%84%E5%85%A5%E5%8F%A3/640.webp" class="" title="图片">
+
+<hr>
+<span id="more"></span>
+
+<p><strong>02</strong></p>
+<p>毫无疑问我们都认为<strong>下一个风口是AI</strong>。</p>
+<p>在经历了过去两年生成式AI的发展后，AI Agent正在成为行业新的焦点。</p>
+<p>虽然基础模型仍在持续演进，但不少创业公司在这场烧钱竞赛中被巨头们收购，业界也已对AI领域“模型与应用并重”的高成本特征达成共识。</p>
+<p>从2024年初AI Agent概念广泛传播，到下半年许多AI应用的出圈（如NotebookLM、Cursor、HeyGen等），再到12月中旬500美元一个月的Devin的全面开放标志着“<strong>第一个真正意义上</strong>“的智能体诞生，大模型的重要性毋庸置疑，但似乎它的作用地位在不断被抽象和封装，逐渐成为一个基础设施。</p>
+<p>互联网时代有操作系统和浏览器等构建起了我们的网络生态。如今，聊天机器人的产品形态从来没有被认为是AI的最终形态。</p>
+<p>那么智能体会是AI时代的一个入口吗？</p>
+<p>目前，各方都看好2025 AI Agent的<strong>全面爆发</strong>。</p>
+<hr>
+<p><strong>03</strong></p>
+<p><em>Google的白皮书：智能体的架构与核心逻辑</em></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">来自谷歌在九月份发布的名为“Agents”的42页白皮书，最近在X和领英上被熟知：https://media.licdn.com/dms/document/media/v2/D561FAQH8tt1cvunj0w/feedshare-document-pdf-analyzed/B56ZQq.TtsG8AY-/0/1735887787265?e=1736985600&amp;v=beta&amp;t=pLuArcKyUcxE9B1Her1QWfMHF_UxZL9Q-Y0JTDuSn38</span><br></pre></td></tr></table></figure>
+
+<img src="/2025/01/19/%E4%BB%8EGoogle%E4%B8%8EAnthropic%E7%9C%8B2025%20Agent%E5%8A%BF%E4%B8%8D%E5%8F%AF%E6%8C%A1%E7%9A%84%E7%88%86%E5%8F%91%E2%80%94%E2%80%94AI%E6%97%B6%E4%BB%A3%E7%9A%84%E5%85%A5%E5%8F%A3/640-17374390055741.webp" class="" title="图片">
+
+<p>如果你还不太了解AI Agents，这篇论文<strong>值得精读</strong>。</p>
+<p><strong>智能体不仅是更智能的模型——</strong></p>
+<p>谷歌强调了智能体的自主性，着重定义了”独立于人类干预进行行动“。实际上，我认为这一点<strong>尤其重要</strong>。</p>
+<p>之所以认为AI是新时代的一个重要因素是普遍认可它能够提高生产力，这一点是前几次工业革命的相同点。</p>
+<p>谷歌认为，AI Agent与传统LLM有区别，尽管他们本质上还是基于大模型，但LLM局限于从训练数据中学到过时的内容，而且只能解决表面的问题（或者说是<strong>形而上</strong>的）。相比之下，智能体能够与外部进行交互并真正地执行任务，影响现实。</p>
+<p>“在传统模型中，知识仅限于其训练数据中可用的内容，”论文指出。“通过工具与外部系统的连接，智能体扩展了这种知识。”</p>
+<p>我简单举个例子。当语言模型成为一个厨师，它只会教导如何做菜；而智能体呢？毫无疑问，他会做出饭来，他能够自主决策并去执行。</p>
+<p>我们看到了智能体将带来的变化，他能够根据任务通过整合推理和执行以达成目标，他可能成为一种数字工作者，处理复杂的流程，Devin就是如此。</p>
+<p><strong>智能体拥有强大的执行逻辑——</strong></p>
+<p>实际上，智能体的核心并不简单是LLM，而是基于此构建出的”编排层“架构，其中包含了推理、规划和决策。这个架构允许智能体在执行中更新信息，完善后再去执行，不断迭代。</p>
+<p><strong>智能体也可以使用工具与RAG——</strong></p>
+<p>现在，很多chatbot都增加了很多功能包括搜索等，而智能体毫无疑问同样可以通过调取API整合复杂的逻辑。甚至，他可以自己决策调用什么，如何去调用，因为他<strong>自己可以去访问网站</strong>，只要他被允许这么做，你可以在Devin中看到。</p>
+<p>RAG（检索增强生成）允许智能体在数据不足的情况下查询外部数据源，可以是你自己的文档、知识库等，你需要将其结构化或向量化。</p>
+<p><strong>推理模型——</strong></p>
+<p>论文中没有提到的一点，但我认为将会变成促进智能体发展很重要的一点：推理模型。</p>
+<p>由于白皮书是在9月份发布的，而o1与o3都在后续发布。o3的能力已经超过绝大部分人类，只要成本打下来，绝对极大推动智能体的发展。期待中国公司的努力。</p>
+<p>为什么这么说，因为推理的进步本身就可以极大优化谷歌提到的”编排层“架构，包含推理、规划和决策。</p>
+<p>论文中同样提到了一些Agent构建框架的使用，就不具体展开了。</p>
+<hr>
+<p><strong>04</strong></p>
+<p><em>Anthropic：如何构建有效的智能体</em></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">来自Anthropic的“Building effective agents”：https://www.anthropic.com/research/building-effective-agents</span><br></pre></td></tr></table></figure>
+
+<img src="/2025/01/19/%E4%BB%8EGoogle%E4%B8%8EAnthropic%E7%9C%8B2025%20Agent%E5%8A%BF%E4%B8%8D%E5%8F%AF%E6%8C%A1%E7%9A%84%E7%88%86%E5%8F%91%E2%80%94%E2%80%94AI%E6%97%B6%E4%BB%A3%E7%9A%84%E5%85%A5%E5%8F%A3/640-17374390055752.webp" class="" title="图片">
+
+<p>这篇文章并不长且干货很多，建议<strong>全文精读</strong>。</p>
+<p>一直都很喜欢Anthropic的网站风格，包括他们的文章。（难道是因为被Claude夸吗？最近关于Claude附和用户的吐槽很多）</p>
+<p>这一篇文章的主题就如标题一般“构建有效的智能体（代理）”，更加侧重于实践。</p>
+<p><strong>严谨的定义——</strong></p>
+<p>在这篇文章中，Anthropic给出了一个对于Agents很客观全面的定义（Agent被翻译为代理）：</p>
+<blockquote>
+<p>代理开始工作，要么是来自人类用户的命令，要么是与人类用户的交互式讨论。一旦任务明确，代理将独立规划和操作，可能需要返回人类用户以获取更多信息或判断。在执行过程中，代理在每一步都需要从环境中获取“事实真相”（例如工具调用结果或代码执行）以评估其进度。代理可以在检查点或遇到阻碍时暂停以获取人类反馈。任务通常在完成时终止，但也可以包括停止条件（例如最大迭代次数）以保持控制。</p>
+</blockquote>
+<p><strong>简化优先——</strong></p>
+<p>Anthropic提出了大多数情况下复杂的Agent是不需要的，解决我们的需求的成功在于构建符合需求的系统，而非单纯追求复杂性，他们强调了复杂是需要牺牲延迟和成本的。</p>
+<p>因此，他们将代理系统分为了增强型LLM、工作流和智能体。这甚至是一个循序渐进的过程。作者指出：</p>
+<blockquote>
+<p>在构建带有LLMs的应用程序时，我们建议寻找尽可能简单的解决方案，并在必要时才增加复杂性。这可能意味着根本不构建代理系统。</p>
+</blockquote>
+<p>这倒是为我提供很好的参考意见。</p>
+<p>“代理的自主性意味着<strong>更高的成本</strong>，以及<strong>累积错误</strong>的潜在可能性。”作者强调了这一点，与Google的观点还是有不同的，倒也符合Anthropic从安全出发的态度。</p>
+<p>文章展示了5种工作流模式，简单而高效，如果你想要构建一些流程的话，建议阅读。</p>
+<hr>
+<p><strong>05</strong></p>
+<p><em>未来</em></p>
+<p>读到这里，不知你有没有构建过智能体，从你的需求或者创意出发。</p>
+<p>我在之前的文章也分享过我在构建智能体的一些想法与实践，不过他们并不是Google所指出的自主性的Agent，更像是Anthropic的增强型LLM，但这也足够解决我的需求了。</p>
+<p>如果你还没有去实践过，那就要抓紧了。</p>
+<p>等自主性的Agent可以被个人构建出来时，AI时代的入口大概就要来临了，那可能就是”iphone4时刻”。</p>
+<p>来自AI总结：</p>
+<blockquote>
+<p>1.Agent兴起</p>
+<p>生成式AI推动了智能体的发展，AI大模型逐渐成为基础设施。2025年被看好为AI智能体全面爆发的关键年份，它可能成为<strong>AI时代的重要入口</strong>。</p>
+<p>2.Google白皮书</p>
+<p>强调智能体的自主性，它不仅是大模型的延伸，还能规划、决策和执行任务，与外部交互。智能体通过编排层架构和工具调用，解决实际问题并不断迭代优化。</p>
+<p>3.Anthropic实践指南</p>
+<p>提倡构建简单、高效的智能体。智能体自主性虽重要，但复杂性带来高成本和累积错误风险。建议逐步增加复杂性，构建适合需求的解决方案。</p>
+<p>4.未来展望</p>
+<p>智能体的发展将打开AI新时代的入口，个人构建自主智能体或成趋势。抓住机遇，实践是关键。</p>
+</blockquote>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/AI/" rel="tag"># AI</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2025/01/15/%E5%AF%B9%E4%BA%8EAI%E5%8F%91%E5%B1%95%EF%BC%8C%E4%B8%8D%E5%A6%A8%E5%A4%9A%E4%B8%80%E7%82%B9%E4%BA%BA%E6%96%87%E6%83%85%E6%80%80/" rel="prev" title="对于AI发展，不妨多一点人文情怀">
+                  <i class="fa fa-angle-left"></i> 对于AI发展，不妨多一点人文情怀
+                </a>
+            </div>
+            <div class="post-nav-item">
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="copyright">
+    &copy; 
+    <span itemprop="copyrightYear">2025</span>
+    <span class="with-love">
+      <i class="fa fa-heart"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">wowyuarm</span>
+  </div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+      <span>站点总字数：</span>
+    <span title="站点总字数">14k</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+      <span>站点阅读时长 &asymp;</span>
+    <span title="站点阅读时长">25 分钟</span>
+  </span>
+</div>
+<div class="busuanzi-count">
+    <span class="post-meta-item" id="busuanzi_container_site_uv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+    </div>
+  </footer>
+
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+  <div class="sidebar-dimmer"></div>
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/sidebar.js"></script><script src="/js/next-boot.js"></script>
+
+  
+
+
+
+
+
+
+  
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+
+</body>
+</html>
