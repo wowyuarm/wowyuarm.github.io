@@ -1,0 +1,436 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 7.3.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.gif">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.ico">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.ico">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha256-5eIC48iZUHmSlSUz9XtjRyK2mzQkHScZY1WdMaoz74E=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"www.wowyuarm.top","root":"/","images":"/images","scheme":"Gemini","darkmode":false,"version":"8.21.1","exturl":false,"sidebar":{"position":"left","width_expanded":320,"width_dual_column":240,"display":"post","padding":18,"offset":12},"hljswrap":true,"copycode":{"enable":false,"style":null},"fold":{"enable":false,"height":500},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"duration":200,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="01 OpenAI在凌晨于Reddit上，发起了一个项目AMA（Ask Me Anything），由用户提出相关问题，OpenAI团队做作出回答。 本文简要总结要点，并融合DeepSeek-R1的爆火，以及我的思考。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="OpenAI的自信与危机：开源浪潮下的AGI叙事与竞争格局">
+<meta property="og:url" content="http://www.wowyuarm.top/2025/02/09/OpenAI%E7%9A%84%E8%87%AA%E4%BF%A1%E4%B8%8E%E5%8D%B1%E6%9C%BA%EF%BC%9A%E5%BC%80%E6%BA%90%E6%B5%AA%E6%BD%AE%E4%B8%8B%E7%9A%84AGI%E5%8F%99%E4%BA%8B%E4%B8%8E%E7%AB%9E%E4%BA%89%E6%A0%BC%E5%B1%80/index.html">
+<meta property="og:site_name" content="云隐孤星">
+<meta property="og:description" content="01 OpenAI在凌晨于Reddit上，发起了一个项目AMA（Ask Me Anything），由用户提出相关问题，OpenAI团队做作出回答。 本文简要总结要点，并融合DeepSeek-R1的爆火，以及我的思考。">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://www.wowyuarm.top/2025/02/09/OpenAI%E7%9A%84%E8%87%AA%E4%BF%A1%E4%B8%8E%E5%8D%B1%E6%9C%BA%EF%BC%9A%E5%BC%80%E6%BA%90%E6%B5%AA%E6%BD%AE%E4%B8%8B%E7%9A%84AGI%E5%8F%99%E4%BA%8B%E4%B8%8E%E7%AB%9E%E4%BA%89%E6%A0%BC%E5%B1%80/640.webp">
+<meta property="og:image" content="http://www.wowyuarm.top/2025/02/09/OpenAI%E7%9A%84%E8%87%AA%E4%BF%A1%E4%B8%8E%E5%8D%B1%E6%9C%BA%EF%BC%9A%E5%BC%80%E6%BA%90%E6%B5%AA%E6%BD%AE%E4%B8%8B%E7%9A%84AGI%E5%8F%99%E4%BA%8B%E4%B8%8E%E7%AB%9E%E4%BA%89%E6%A0%BC%E5%B1%80/640-17390808125709.webp">
+<meta property="og:image" content="http://www.wowyuarm.top/2025/02/09/OpenAI%E7%9A%84%E8%87%AA%E4%BF%A1%E4%B8%8E%E5%8D%B1%E6%9C%BA%EF%BC%9A%E5%BC%80%E6%BA%90%E6%B5%AA%E6%BD%AE%E4%B8%8B%E7%9A%84AGI%E5%8F%99%E4%BA%8B%E4%B8%8E%E7%AB%9E%E4%BA%89%E6%A0%BC%E5%B1%80/640-173908081257010.webp">
+<meta property="og:image" content="http://www.wowyuarm.top/2025/02/09/OpenAI%E7%9A%84%E8%87%AA%E4%BF%A1%E4%B8%8E%E5%8D%B1%E6%9C%BA%EF%BC%9A%E5%BC%80%E6%BA%90%E6%B5%AA%E6%BD%AE%E4%B8%8B%E7%9A%84AGI%E5%8F%99%E4%BA%8B%E4%B8%8E%E7%AB%9E%E4%BA%89%E6%A0%BC%E5%B1%80/640-173908081257011.webp">
+<meta property="article:published_time" content="2025-02-09T05:59:07.000Z">
+<meta property="article:modified_time" content="2025-02-09T06:02:02.174Z">
+<meta property="article:author" content="wowyuarm">
+<meta property="article:tag" content="AI">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://www.wowyuarm.top/2025/02/09/OpenAI%E7%9A%84%E8%87%AA%E4%BF%A1%E4%B8%8E%E5%8D%B1%E6%9C%BA%EF%BC%9A%E5%BC%80%E6%BA%90%E6%B5%AA%E6%BD%AE%E4%B8%8B%E7%9A%84AGI%E5%8F%99%E4%BA%8B%E4%B8%8E%E7%AB%9E%E4%BA%89%E6%A0%BC%E5%B1%80/640.webp">
+
+
+<link rel="canonical" href="http://www.wowyuarm.top/2025/02/09/OpenAI%E7%9A%84%E8%87%AA%E4%BF%A1%E4%B8%8E%E5%8D%B1%E6%9C%BA%EF%BC%9A%E5%BC%80%E6%BA%90%E6%B5%AA%E6%BD%AE%E4%B8%8B%E7%9A%84AGI%E5%8F%99%E4%BA%8B%E4%B8%8E%E7%AB%9E%E4%BA%89%E6%A0%BC%E5%B1%80/">
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"http://www.wowyuarm.top/2025/02/09/OpenAI%E7%9A%84%E8%87%AA%E4%BF%A1%E4%B8%8E%E5%8D%B1%E6%9C%BA%EF%BC%9A%E5%BC%80%E6%BA%90%E6%B5%AA%E6%BD%AE%E4%B8%8B%E7%9A%84AGI%E5%8F%99%E4%BA%8B%E4%B8%8E%E7%AB%9E%E4%BA%89%E6%A0%BC%E5%B1%80/","path":"2025/02/09/OpenAI的自信与危机：开源浪潮下的AGI叙事与竞争格局/","title":"OpenAI的自信与危机：开源浪潮下的AGI叙事与竞争格局"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>OpenAI的自信与危机：开源浪潮下的AGI叙事与竞争格局 | 云隐孤星</title>
+  
+
+
+
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">云隐孤星</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">朋友，你好！</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="搜索" role="button">
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li>
+  </ul>
+</nav>
+
+
+
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-overview-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="wowyuarm"
+      src="/images/avatar.gif">
+  <p class="site-author-name" itemprop="name">wowyuarm</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">11</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">3</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/wowyuarm" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;wowyuarm" rel="noopener me" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:wuyuang05@outlook.com" title="E-Mail → mailto:wuyuang05@outlook.com" rel="noopener me" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+        </div>
+      </div>
+    </div>
+
+    
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://www.wowyuarm.top/2025/02/09/OpenAI%E7%9A%84%E8%87%AA%E4%BF%A1%E4%B8%8E%E5%8D%B1%E6%9C%BA%EF%BC%9A%E5%BC%80%E6%BA%90%E6%B5%AA%E6%BD%AE%E4%B8%8B%E7%9A%84AGI%E5%8F%99%E4%BA%8B%E4%B8%8E%E7%AB%9E%E4%BA%89%E6%A0%BC%E5%B1%80/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="wowyuarm">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="云隐孤星">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="OpenAI的自信与危机：开源浪潮下的AGI叙事与竞争格局 | 云隐孤星">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          OpenAI的自信与危机：开源浪潮下的AGI叙事与竞争格局
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+      
+
+      <time title="创建时间：2025-02-09 13:59:07 / 修改时间：14:02:02" itemprop="dateCreated datePublished" datetime="2025-02-09T13:59:07+08:00">2025-02-09</time>
+    </span>
+
+  
+    <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span id="busuanzi_value_page_pv"></span>
+    </span>
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>2.1k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>4 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><p><strong>01</strong></p>
+<p>OpenAI在凌晨于Reddit上，发起了一个项目AMA（Ask Me Anything），由用户提出相关问题，OpenAI团队做作出回答。</p>
+<p>本文简要总结要点，并融合DeepSeek-R1的爆火，以及我的思考。</p>
+<span id="more"></span>
+
+<style>.ijpxqukqukzz{zoom: 50%;}</style><img src="/2025/02/09/OpenAI%E7%9A%84%E8%87%AA%E4%BF%A1%E4%B8%8E%E5%8D%B1%E6%9C%BA%EF%BC%9A%E5%BC%80%E6%BA%90%E6%B5%AA%E6%BD%AE%E4%B8%8B%E7%9A%84AGI%E5%8F%99%E4%BA%8B%E4%B8%8E%E7%AB%9E%E4%BA%89%E6%A0%BC%E5%B1%80/640.webp" class="ijpxqukqukzz" alt="图片">
+
+<style>.nepcmczpcgpb{zoom:50%;}</style><img src="/2025/02/09/OpenAI%E7%9A%84%E8%87%AA%E4%BF%A1%E4%B8%8E%E5%8D%B1%E6%9C%BA%EF%BC%9A%E5%BC%80%E6%BA%90%E6%B5%AA%E6%BD%AE%E4%B8%8B%E7%9A%84AGI%E5%8F%99%E4%BA%8B%E4%B8%8E%E7%AB%9E%E4%BA%89%E6%A0%BC%E5%B1%80/640-17390808125709.webp" class="nepcmczpcgpb" alt="图片">
+
+<hr>
+<p><strong>02 OpenAI的回应</strong></p>
+<p><strong>只是提取要点，没有全部覆盖，重点是CloseAI在考虑开源旧模型</strong></p>
+<ol>
+<li>模型与技术发展：</li>
+</ol>
+<p><strong>o3-mini</strong>：凌晨刚刚发布，专注于推理、代码和数学，支持网络浏览（知识截止日期仍为2023年10月，但搜索功能弥补不足）。未来将支持工具调用（如检索、文件处理）和更长的上下文窗口。</p>
+<p>可以说，没有R1的推出，o3-mini可能还要再藏藏。</p>
+<p><strong>GPT-5</strong>：未明确时间表，计划称为“GPT-5”而非“GPT-5o”，可能整合更多功能（如语音、工具协作）。</p>
+<ol start="2">
+<li>产品功能与用户体验：</li>
+</ol>
+<p><strong>上下文窗口扩展</strong>：目标是解决有限上下文问题，1M tokens的窗口在研究中，但无具体发布日期。</p>
+<p><strong>记忆与任务功能</strong>：正在统一O系列与ChatGPT的记忆功能，任务管理将优化（如更大任务容量）。</p>
+<p><strong>Chain-of-Thought</strong>（思考链）：o3-mini展示更详细的推理过程（类似R1模型），但需平衡透明度与竞争性（还得是CloseAI）。</p>
+<p><strong>进度提示</strong>：计划添加模型使用量提示（如剩余回答次数条）。</p>
+<ol start="3">
+<li>开源与竞争（<strong>CloseAI</strong>）</li>
+</ol>
+<p>正在讨论开源旧模型（如GPT-3、GPT-2），Sam承认此前策略可能“错误”，但未承诺具体计划。</p>
+<p>将发布更多研究成果（如类似CLIP的成果），但细节未定。</p>
+<p>承认开源模型（如DeepSeek）的竞争压力，但<strong>自信模型性能</strong>仍领先，优势会缩小。（也是侧面承认CloseAI藏了很多东西）</p>
+<p>AI总结：</p>
+<blockquote>
+<p>OpenAI正围绕模型<strong>能力扩展、多模态整合、成本优化和用户体验</strong>提升推进，重点包括：</p>
+<p>- O系列与GPT-5的持续升级；</p>
+<p>- 语音、图像、文件等功能的深度融合；</p>
+<p>- 通过降价和订阅分级扩大用户覆盖；</p>
+<p>- 探索开源策略以应对竞争。</p>
+<p>但部分关键问题（如AGI时间表、开源具体计划）仍模糊，需持续关注官方动态。</p>
+</blockquote>
+<hr>
+<p><strong>03 发散思考</strong></p>
+<p>在开始我的思考之前，我尝试着直观地对比出o3-mini与R1，因此我将03以上内容复制并输入“接下来怎么写”。</p>
+<p>大概不需要我来说以下两张图分别是哪个模型了吧？</p>
+<p>而且，o3-mini的可视化推理过程竟然是中英文参杂的。R1的意图识别推理仍然很强大。</p>
+<style>.orfdzprhyhvr{zoom:50%;}</style><img src="/2025/02/09/OpenAI%E7%9A%84%E8%87%AA%E4%BF%A1%E4%B8%8E%E5%8D%B1%E6%9C%BA%EF%BC%9A%E5%BC%80%E6%BA%90%E6%B5%AA%E6%BD%AE%E4%B8%8B%E7%9A%84AGI%E5%8F%99%E4%BA%8B%E4%B8%8E%E7%AB%9E%E4%BA%89%E6%A0%BC%E5%B1%80/640-173908081257010.webp" class="orfdzprhyhvr" alt="图片">
+
+<style>.izybhskuggid{zoom:50%;}</style><img src="/2025/02/09/OpenAI%E7%9A%84%E8%87%AA%E4%BF%A1%E4%B8%8E%E5%8D%B1%E6%9C%BA%EF%BC%9A%E5%BC%80%E6%BA%90%E6%B5%AA%E6%BD%AE%E4%B8%8B%E7%9A%84AGI%E5%8F%99%E4%BA%8B%E4%B8%8E%E7%AB%9E%E4%BA%89%E6%A0%BC%E5%B1%80/640-173908081257011.webp" class="izybhskuggid" alt="图片">
+
+<p><strong>自信与危机：</strong></p>
+<p>我从CloseAI的回复中，仍是看到了自信却同时存在着不明确的危机感。</p>
+<p>这场问答的时机也耐人寻味。在R1爆火之际，OpenAI选择发布o3-mini并举行AMA，某种程度上可以理解为一种“危机感”的体现。</p>
+<p>尽管CloseAI多次提到技术领先性，然而，我们不断在看到AI竞争格局的变化。</p>
+<p><strong>垂直应用：</strong></p>
+<p>AI应用有一个不可忽视的场景：垂直领域。</p>
+<p>R1允许<strong>本地部署+微调</strong>，企业用户快速转向私有化方案（如医疗、金融领域）。</p>
+<p>AI应用最强大的护城河绝不是模型。随着开源模型的不断强大，应用体验能否随其<strong>自增长</strong>？</p>
+<p>基座大模型+微调小模型，我认为这可能是一个解决方案，前者是开源的、安全的、强大的，后者是自己的、可靠的、专有的。</p>
+<p>而越来越多的R1-like（要我说都不要叫o1-like了）等强大的推理模型无疑为行业赋能。</p>
+<p><strong>AGI叙事与开源共发展：</strong></p>
+<p>CloseAI不停的AGI叙事必须承认这就是一种营销手段。当然，不可否认其对于技术发展的作用。然而，我们也看到当这种叙事成为共识，它必然会从单一的技术上升到国家间的竞争。</p>
+<p>前段时间Anthropic CEO的万字长文明确指出<strong>美国需要对中国芯片出口加大限制</strong>，打破了我对于Anthropic美好愿景的幻想。</p>
+<p>他们仍沉浸于由AGI叙事塑造出的民主未来，在这篇文章中，<em>“ 确保民主国家在人工智能发展中保持领先地位</em> ”的句子不禁让人感叹AI科技竞争已然开始。</p>
+<p>归根到底，难道不是将技术掌握在他们手中？</p>
+<p>那么开源的初衷又是什么？</p>
+<p>难道AGI叙事的结果由<strong>开源实现</strong>不是最优的方案吗？</p>
+<hr>
+<p>R1的成功再次证明了开源模式强大的生命力，也让OpenAI考虑开源旧模型，这或许标志着AI行业正在经历一次认知转变：从封闭垄断走向开放协作。</p>
+<p>在之前的一篇文章中，我强调了R1在推动强化学习与推理模型发展的重要性。（<a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s?__biz=Mzk1NzM4NzQ4Mg==&mid=2247483894&idx=1&sn=e930b3fcf2fb728a36e727e558bcd6ff&scene=21#wechat_redirect">推理大爆炸：国内推理模型的阶段性介绍、汇总、分析与思考</a>）</p>
+<p>这篇文章，我更想强调R1对于AI开源的影响。不过，我们也需要看到Meta的Llama与阿里的Qwen、QwQ等其他系列对于开源不可忽视的影响。</p>
+<hr>
+<p>R1总结：</p>
+<blockquote>
+<p>OpenAI在AMA中展现了技术自信，但DeepSeek-R1的爆火让其隐含危机感。</p>
+<p>R1支持本地部署与微调，推动垂直领域私有化方案，而OpenAI匆忙推出o3-mini并讨论开源旧模型，试图应对开源竞争。</p>
+<p>AGI叙事虽强化了技术光环，却也面临开源生态崛起的挑战。行业正从封闭垄断转向开放协作，基座大模型开源化+行业小模型定制化或成主流。</p>
+<p>OpenAI的“危机式”产品发布与模糊的AGI时间表，折射出开源浪潮下竞争格局的重构——技术护城河被逐步侵蚀，生态与场景的争夺将成为未来关键。</p>
+</blockquote>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/AI/" rel="tag"># AI</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2025/01/28/%E6%8E%A8%E7%90%86%E5%A4%A7%E7%88%86%E7%82%B8%EF%BC%9A%E5%9B%BD%E5%86%85%E6%8E%A8%E7%90%86%E6%A8%A1%E5%9E%8B%E7%9A%84%E9%98%B6%E6%AE%B5%E6%80%A7%E4%BB%8B%E7%BB%8D%E3%80%81%E6%B1%87%E6%80%BB%E3%80%81%E5%88%86%E6%9E%90%E4%B8%8E%E6%80%9D%E8%80%83/" rel="prev" title="推理大爆炸：国内推理模型的阶段性介绍、汇总、分析与思考">
+                  <i class="fa fa-angle-left"></i> 推理大爆炸：国内推理模型的阶段性介绍、汇总、分析与思考
+                </a>
+            </div>
+            <div class="post-nav-item">
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="copyright">
+    &copy; 
+    <span itemprop="copyrightYear">2025</span>
+    <span class="with-love">
+      <i class="fa fa-heart"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">wowyuarm</span>
+  </div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+      <span>站点总字数：</span>
+    <span title="站点总字数">21k</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+      <span>站点阅读时长 &asymp;</span>
+    <span title="站点阅读时长">39 分钟</span>
+  </span>
+</div>
+<div class="busuanzi-count">
+    <span class="post-meta-item" id="busuanzi_container_site_uv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+    </div>
+  </footer>
+
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+  <div class="sidebar-dimmer"></div>
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/sidebar.js"></script><script src="/js/next-boot.js"></script>
+
+  
+
+
+
+
+
+
+  
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+
+</body>
+</html>

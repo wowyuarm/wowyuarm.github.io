@@ -1,0 +1,479 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 7.3.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.gif">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.ico">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.ico">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha256-5eIC48iZUHmSlSUz9XtjRyK2mzQkHScZY1WdMaoz74E=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"www.wowyuarm.top","root":"/","images":"/images","scheme":"Gemini","darkmode":false,"version":"8.21.1","exturl":false,"sidebar":{"position":"left","width_expanded":320,"width_dual_column":240,"display":"post","padding":18,"offset":12},"hljswrap":true,"copycode":{"enable":false,"style":null},"fold":{"enable":false,"height":500},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"duration":200,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="01 新春之际，大模型厂商抢着提前回家过年，有Kimi与DeepSeek在同一天发布对标o1的推理模型。在这之前，还有许多类o1推理模型。 本文探索国产推理模型的发展与思考。 02介绍部分类o1推理模型的核心技术。 03梳理能够对标o1-preview、o1-mini或o1正式版的模型，简要介绍其技术或工程创新之处。 04结合思考，窥探模型发展新格局。 .brxdcofuseks{zoom: 33">
+<meta property="og:type" content="article">
+<meta property="og:title" content="推理大爆炸：国内推理模型的阶段性介绍、汇总、分析与思考">
+<meta property="og:url" content="http://www.wowyuarm.top/2025/01/28/%E6%8E%A8%E7%90%86%E5%A4%A7%E7%88%86%E7%82%B8%EF%BC%9A%E5%9B%BD%E5%86%85%E6%8E%A8%E7%90%86%E6%A8%A1%E5%9E%8B%E7%9A%84%E9%98%B6%E6%AE%B5%E6%80%A7%E4%BB%8B%E7%BB%8D%E3%80%81%E6%B1%87%E6%80%BB%E3%80%81%E5%88%86%E6%9E%90%E4%B8%8E%E6%80%9D%E8%80%83/index.html">
+<meta property="og:site_name" content="云隐孤星">
+<meta property="og:description" content="01 新春之际，大模型厂商抢着提前回家过年，有Kimi与DeepSeek在同一天发布对标o1的推理模型。在这之前，还有许多类o1推理模型。 本文探索国产推理模型的发展与思考。 02介绍部分类o1推理模型的核心技术。 03梳理能够对标o1-preview、o1-mini或o1正式版的模型，简要介绍其技术或工程创新之处。 04结合思考，窥探模型发展新格局。 .brxdcofuseks{zoom: 33">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://www.wowyuarm.top/2025/01/28/%E6%8E%A8%E7%90%86%E5%A4%A7%E7%88%86%E7%82%B8%EF%BC%9A%E5%9B%BD%E5%86%85%E6%8E%A8%E7%90%86%E6%A8%A1%E5%9E%8B%E7%9A%84%E9%98%B6%E6%AE%B5%E6%80%A7%E4%BB%8B%E7%BB%8D%E3%80%81%E6%B1%87%E6%80%BB%E3%80%81%E5%88%86%E6%9E%90%E4%B8%8E%E6%80%9D%E8%80%83/640-173908039093166.webp">
+<meta property="og:image" content="http://www.wowyuarm.top/2025/01/28/%E6%8E%A8%E7%90%86%E5%A4%A7%E7%88%86%E7%82%B8%EF%BC%9A%E5%9B%BD%E5%86%85%E6%8E%A8%E7%90%86%E6%A8%A1%E5%9E%8B%E7%9A%84%E9%98%B6%E6%AE%B5%E6%80%A7%E4%BB%8B%E7%BB%8D%E3%80%81%E6%B1%87%E6%80%BB%E3%80%81%E5%88%86%E6%9E%90%E4%B8%8E%E6%80%9D%E8%80%83/640-173908039093167.webp">
+<meta property="og:image" content="http://www.wowyuarm.top/2025/01/28/%E6%8E%A8%E7%90%86%E5%A4%A7%E7%88%86%E7%82%B8%EF%BC%9A%E5%9B%BD%E5%86%85%E6%8E%A8%E7%90%86%E6%A8%A1%E5%9E%8B%E7%9A%84%E9%98%B6%E6%AE%B5%E6%80%A7%E4%BB%8B%E7%BB%8D%E3%80%81%E6%B1%87%E6%80%BB%E3%80%81%E5%88%86%E6%9E%90%E4%B8%8E%E6%80%9D%E8%80%83/640-173908039093168.webp">
+<meta property="og:image" content="http://www.wowyuarm.top/2025/01/28/%E6%8E%A8%E7%90%86%E5%A4%A7%E7%88%86%E7%82%B8%EF%BC%9A%E5%9B%BD%E5%86%85%E6%8E%A8%E7%90%86%E6%A8%A1%E5%9E%8B%E7%9A%84%E9%98%B6%E6%AE%B5%E6%80%A7%E4%BB%8B%E7%BB%8D%E3%80%81%E6%B1%87%E6%80%BB%E3%80%81%E5%88%86%E6%9E%90%E4%B8%8E%E6%80%9D%E8%80%83/640-173908039093169.webp">
+<meta property="og:image" content="http://www.wowyuarm.top/2025/01/28/%E6%8E%A8%E7%90%86%E5%A4%A7%E7%88%86%E7%82%B8%EF%BC%9A%E5%9B%BD%E5%86%85%E6%8E%A8%E7%90%86%E6%A8%A1%E5%9E%8B%E7%9A%84%E9%98%B6%E6%AE%B5%E6%80%A7%E4%BB%8B%E7%BB%8D%E3%80%81%E6%B1%87%E6%80%BB%E3%80%81%E5%88%86%E6%9E%90%E4%B8%8E%E6%80%9D%E8%80%83/640-173908039093170.webp">
+<meta property="og:image" content="http://www.wowyuarm.top/2025/01/28/%E6%8E%A8%E7%90%86%E5%A4%A7%E7%88%86%E7%82%B8%EF%BC%9A%E5%9B%BD%E5%86%85%E6%8E%A8%E7%90%86%E6%A8%A1%E5%9E%8B%E7%9A%84%E9%98%B6%E6%AE%B5%E6%80%A7%E4%BB%8B%E7%BB%8D%E3%80%81%E6%B1%87%E6%80%BB%E3%80%81%E5%88%86%E6%9E%90%E4%B8%8E%E6%80%9D%E8%80%83/640-173908039093171.webp">
+<meta property="og:image" content="http://www.wowyuarm.top/2025/01/28/%E6%8E%A8%E7%90%86%E5%A4%A7%E7%88%86%E7%82%B8%EF%BC%9A%E5%9B%BD%E5%86%85%E6%8E%A8%E7%90%86%E6%A8%A1%E5%9E%8B%E7%9A%84%E9%98%B6%E6%AE%B5%E6%80%A7%E4%BB%8B%E7%BB%8D%E3%80%81%E6%B1%87%E6%80%BB%E3%80%81%E5%88%86%E6%9E%90%E4%B8%8E%E6%80%9D%E8%80%83/640.webp">
+<meta property="article:published_time" content="2025-01-28T06:08:05.000Z">
+<meta property="article:modified_time" content="2025-02-09T05:58:46.774Z">
+<meta property="article:author" content="wowyuarm">
+<meta property="article:tag" content="AI">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://www.wowyuarm.top/2025/01/28/%E6%8E%A8%E7%90%86%E5%A4%A7%E7%88%86%E7%82%B8%EF%BC%9A%E5%9B%BD%E5%86%85%E6%8E%A8%E7%90%86%E6%A8%A1%E5%9E%8B%E7%9A%84%E9%98%B6%E6%AE%B5%E6%80%A7%E4%BB%8B%E7%BB%8D%E3%80%81%E6%B1%87%E6%80%BB%E3%80%81%E5%88%86%E6%9E%90%E4%B8%8E%E6%80%9D%E8%80%83/640-173908039093166.webp">
+
+
+<link rel="canonical" href="http://www.wowyuarm.top/2025/01/28/%E6%8E%A8%E7%90%86%E5%A4%A7%E7%88%86%E7%82%B8%EF%BC%9A%E5%9B%BD%E5%86%85%E6%8E%A8%E7%90%86%E6%A8%A1%E5%9E%8B%E7%9A%84%E9%98%B6%E6%AE%B5%E6%80%A7%E4%BB%8B%E7%BB%8D%E3%80%81%E6%B1%87%E6%80%BB%E3%80%81%E5%88%86%E6%9E%90%E4%B8%8E%E6%80%9D%E8%80%83/">
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"http://www.wowyuarm.top/2025/01/28/%E6%8E%A8%E7%90%86%E5%A4%A7%E7%88%86%E7%82%B8%EF%BC%9A%E5%9B%BD%E5%86%85%E6%8E%A8%E7%90%86%E6%A8%A1%E5%9E%8B%E7%9A%84%E9%98%B6%E6%AE%B5%E6%80%A7%E4%BB%8B%E7%BB%8D%E3%80%81%E6%B1%87%E6%80%BB%E3%80%81%E5%88%86%E6%9E%90%E4%B8%8E%E6%80%9D%E8%80%83/","path":"2025/01/28/推理大爆炸：国内推理模型的阶段性介绍、汇总、分析与思考/","title":"推理大爆炸：国内推理模型的阶段性介绍、汇总、分析与思考"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>推理大爆炸：国内推理模型的阶段性介绍、汇总、分析与思考 | 云隐孤星</title>
+  
+
+
+
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">云隐孤星</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">朋友，你好！</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="搜索" role="button">
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li>
+  </ul>
+</nav>
+
+
+
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-overview-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="wowyuarm"
+      src="/images/avatar.gif">
+  <p class="site-author-name" itemprop="name">wowyuarm</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">11</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">3</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/wowyuarm" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;wowyuarm" rel="noopener me" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:wuyuang05@outlook.com" title="E-Mail → mailto:wuyuang05@outlook.com" rel="noopener me" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+        </div>
+      </div>
+    </div>
+
+    
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://www.wowyuarm.top/2025/01/28/%E6%8E%A8%E7%90%86%E5%A4%A7%E7%88%86%E7%82%B8%EF%BC%9A%E5%9B%BD%E5%86%85%E6%8E%A8%E7%90%86%E6%A8%A1%E5%9E%8B%E7%9A%84%E9%98%B6%E6%AE%B5%E6%80%A7%E4%BB%8B%E7%BB%8D%E3%80%81%E6%B1%87%E6%80%BB%E3%80%81%E5%88%86%E6%9E%90%E4%B8%8E%E6%80%9D%E8%80%83/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="wowyuarm">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="云隐孤星">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="推理大爆炸：国内推理模型的阶段性介绍、汇总、分析与思考 | 云隐孤星">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          推理大爆炸：国内推理模型的阶段性介绍、汇总、分析与思考
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2025-01-28 14:08:05" itemprop="dateCreated datePublished" datetime="2025-01-28T14:08:05+08:00">2025-01-28</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2025-02-09 13:58:46" itemprop="dateModified" datetime="2025-02-09T13:58:46+08:00">2025-02-09</time>
+    </span>
+
+  
+    <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span id="busuanzi_value_page_pv"></span>
+    </span>
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>3.4k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>6 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><p><strong>01</strong></p>
+<p>新春之际，大模型厂商抢着提前回家过年，有Kimi与DeepSeek在同一天发布对标o1的推理模型。在这之前，还有许多类o1推理模型。</p>
+<p>本文探索国产推理模型的发展与思考。</p>
+<p>02介绍部分类o1推理模型的核心技术。</p>
+<p>03梳理能够对标o1-preview、o1-mini或o1正式版的模型，简要介绍其技术或工程创新之处。</p>
+<p>04结合思考，窥探模型发展新格局。</p>
+<style>.brxdcofuseks{zoom: 33%;}</style><img src="/2025/01/28/%E6%8E%A8%E7%90%86%E5%A4%A7%E7%88%86%E7%82%B8%EF%BC%9A%E5%9B%BD%E5%86%85%E6%8E%A8%E7%90%86%E6%A8%A1%E5%9E%8B%E7%9A%84%E9%98%B6%E6%AE%B5%E6%80%A7%E4%BB%8B%E7%BB%8D%E3%80%81%E6%B1%87%E6%80%BB%E3%80%81%E5%88%86%E6%9E%90%E4%B8%8E%E6%80%9D%E8%80%83/640-173908039093166.webp" class="brxdcofuseks" alt="图片">
+
+<hr>
+<span id="more"></span>
+
+<p><strong>02 部分核心技术</strong></p>
+<p><strong>思维链</strong>（Chain of Thought, CoT）<strong>：</strong></p>
+<p>思维链是一种帮助大模型进行推理的技术。其核心思想是通过让模型在回答复杂问题时，逐步解释每一步的推理过程，而不是直接给出答案。</p>
+<p><strong>强化学习</strong>（Reinforcement Learning, RL）:</p>
+<p>强化学习是一种通过与环境交互来学习最优行为的机器学习方法。模型通过试错来学习，根据环境的反馈（奖励或惩罚）来调整其行为，以最大化累积奖励。</p>
+<p><strong>多阶段训练流程</strong></p>
+<p>多阶段训练流程是一种分阶段进行模型训练的方法，通常包括<strong>预训练、微调和强化学习</strong>等阶段。每个阶段都有特定的目标和方法，通过逐步优化模型的性能。</p>
+<p>在类o1推理模型中，多阶段训练流程被用来确保模型在不同阶段都能达到最佳性能。</p>
+<p>在此说明，大语言模型（LLM）的训练通常包括预训练、监督微调、奖励建模和强化学习四个阶段，这一流程<strong>主要由OpenAI</strong>定义。</p>
+<p>Kimi K1.5通过预训练、监督微调、长思维链（CoT）监督微调和强化学习<strong>四个阶段</strong>，实现了推理性能的显著提升。</p>
+<p>DeepSeek R1摒弃了拒绝采样和监督微调，<strong>仅依靠</strong>强化学习进行训练。以往，模型性能的提升往往<strong>依赖于大量的监督数据</strong>，但DeepSeek R1的训练方式打破了这一传统模式。</p>
+<hr>
+<p><strong>03</strong></p>
+<p>以下不对模型能力进行比较，推理模型出现顺序按照<strong>发布时间</strong>排序。</p>
+<p>另外，对于推理模型的总结仍有许多遗漏，部分模型没有涉及，如阿里开源推理模型Marco-o1、QwQ、QvQ，微信的DRT-o1等。</p>
+<p>需要强调，下面所涉及的模型是25年以来面向公众开放，且<strong>市场关注度较高</strong>的几款。</p>
+<hr>
+<p><strong>Skywork o1：</strong></p>
+<p>昆仑万维的 Skywork o1 于2024年11月27日正式启动邀请测试，并于2025年1月6日全面登陆天工网页和APP，向公众免费开放使用。</p>
+<p>Skywork O1 采用了天工自研的 Q* 线上推理框架，将大型语言模型（LLMs）的多步推理视作一个<strong>启发式搜索问题</strong>。</p>
+<p>采用模块化的树形结构推理，将模型回答进行自动化分层输出，并<strong>在推理过程中穿插</strong>反思和验证。</p>
+<p>其他技术特点包括推理反思能力训练、推理能力强化学习和推理planning等。</p>
+<p>作为国内首款具备中文逻辑推理能力的o1模型，Skywork o1在模型输出上内生了思考、计划、反思等高级能力，实现了推理能力的显著提升，标志着中国在AI领域取得了新的突破。</p>
+<style>.ksqbovusndkm{zoom:50%;}</style><img src="/2025/01/28/%E6%8E%A8%E7%90%86%E5%A4%A7%E7%88%86%E7%82%B8%EF%BC%9A%E5%9B%BD%E5%86%85%E6%8E%A8%E7%90%86%E6%A8%A1%E5%9E%8B%E7%9A%84%E9%98%B6%E6%AE%B5%E6%80%A7%E4%BB%8B%E7%BB%8D%E3%80%81%E6%B1%87%E6%80%BB%E3%80%81%E5%88%86%E6%9E%90%E4%B8%8E%E6%80%9D%E8%80%83/640-173908039093167.webp" class="ksqbovusndkm" alt="图片">
+
+
+
+<p><strong>GLM-Zero：</strong></p>
+<p>智谱 GLM-Zero 的初代版本 GLM-Zero-Preview 于2024年12月31日正式上线。</p>
+<p>智谱首个基于<strong>扩展强化学习技术</strong>训练的推理模型。</p>
+<p>GLM-Zero 尝试模拟人脑中的反馈和决策系统，通过自我学习、自我反思和自我批评等机制。</p>
+<p>具备一定的多模态理解能力。</p>
+<p>显著提升了处理专家级任务的能力。</p>
+<p>在 AIME 2024、MATH500 和 LiveCodeBench 等权威评测中，GLM-Zero 的表现与 OpenAI 的 o1-Preview相当。</p>
+<style>.fflphjfrqhsj{zoom:50%;}</style><img src="/2025/01/28/%E6%8E%A8%E7%90%86%E5%A4%A7%E7%88%86%E7%82%B8%EF%BC%9A%E5%9B%BD%E5%86%85%E6%8E%A8%E7%90%86%E6%A8%A1%E5%9E%8B%E7%9A%84%E9%98%B6%E6%AE%B5%E6%80%A7%E4%BB%8B%E7%BB%8D%E3%80%81%E6%B1%87%E6%80%BB%E3%80%81%E5%88%86%E6%9E%90%E4%B8%8E%E6%80%9D%E8%80%83/640-173908039093168.webp" class="fflphjfrqhsj" alt="图片">
+
+
+
+<p><strong>Step Reasoner mini:</strong> </p>
+<p>阶跃星辰的 Step R-mini 于2025年1月16日正式上线。</p>
+<p>Step R-mini通过<strong>大规模的强化学习训练</strong>，并使用On-Policy（同策略）强化学习算法，实现了“<strong>文理兼</strong>修”。</p>
+<p>在AIME和Math等数学基准测试上，成绩超过o1-preview，比肩OpenAI o1-mini。在LiveCodeBench代码任务上，效果优于o1-preview。</p>
+<p>采用<strong>慢思考</strong>和反复验证的逻辑机制。</p>
+<p>坚持模型规模扩展，正在开发更智能、更通用、综合能力更强的Step Reasoner推理模型。</p>
+<style>.elfvnhbqlkre{zoom:50%;}</style><img src="/2025/01/28/%E6%8E%A8%E7%90%86%E5%A4%A7%E7%88%86%E7%82%B8%EF%BC%9A%E5%9B%BD%E5%86%85%E6%8E%A8%E7%90%86%E6%A8%A1%E5%9E%8B%E7%9A%84%E9%98%B6%E6%AE%B5%E6%80%A7%E4%BB%8B%E7%BB%8D%E3%80%81%E6%B1%87%E6%80%BB%E3%80%81%E5%88%86%E6%9E%90%E4%B8%8E%E6%80%9D%E8%80%83/640-173908039093169.webp" class="elfvnhbqlkre" alt="图片">
+
+
+
+<p><strong>Kimi K1.5：</strong></p>
+<p>Kimi K1.5于2025年1月20日正式发布。</p>
+<p>Kimi k1.5在数学、代码、视觉多模态和通用能力等方面表现出色，特别是在AIME等基准测试中，其长链思维能力<strong>达到了OpenAI o1正式版</strong>的水平。</p>
+<p><strong>Long2Short训练方案</strong>：将长链式思考技术（long-CoT）的优势迁移到短链式思考模型（short-CoT）中，通过长上下文扩展（将强化学习（RL）的上下文窗口扩展到128k）和策略优化改进，进一步优化模型性能。</p>
+<p>Kimi k1.5在多个基准测试中表现出色，特别是在short-CoT模式下，其数学、代码、视觉多模态和通用能力<strong>大幅超越</strong>了全球范围内短思考SOTA模型GPT-4o和Claude 3.5 Sonnet，领先幅度高达550%。</p>
+<p>国产AI大模型在<strong>多模态推理和强化学习技术方面</strong>取得了重大突破。</p>
+<style>.kcenlictoqqh{zoom:50%;}</style><img src="/2025/01/28/%E6%8E%A8%E7%90%86%E5%A4%A7%E7%88%86%E7%82%B8%EF%BC%9A%E5%9B%BD%E5%86%85%E6%8E%A8%E7%90%86%E6%A8%A1%E5%9E%8B%E7%9A%84%E9%98%B6%E6%AE%B5%E6%80%A7%E4%BB%8B%E7%BB%8D%E3%80%81%E6%B1%87%E6%80%BB%E3%80%81%E5%88%86%E6%9E%90%E4%B8%8E%E6%80%9D%E8%80%83/640-173908039093170.webp" class="kcenlictoqqh" alt="图片">
+
+
+
+<p><strong>DeepSeek R1：</strong></p>
+<p>DeepSeek R1于2025年1月20日正式发布。</p>
+<p>DeepSeek R1在<strong>后训练阶段</strong>大规模应用了强化学习技术，无需依赖大量监督微调（SFT）数据，即可显著提升模型的推理能力。</p>
+<p>通过强化学习技术，实现了长链推理能力的提升，并通过模型蒸馏技术，将推理能力迁移到小型密集模型中，进一步优化了模型性能。</p>
+<p>在数学、代码、自然语言推理等任务上表现卓越，<strong>性能直接对标OpenAI的o1正式版</strong>，同时价格仅为o1的几十分之一，具有极高的性价比。</p>
+<p>关于R1，多说几句。</p>
+<p>Sam刚刚发了推文正面回应：</p>
+<style>.qwjjztsyctqg{zoom: 33%;}</style><img src="/2025/01/28/%E6%8E%A8%E7%90%86%E5%A4%A7%E7%88%86%E7%82%B8%EF%BC%9A%E5%9B%BD%E5%86%85%E6%8E%A8%E7%90%86%E6%A8%A1%E5%9E%8B%E7%9A%84%E9%98%B6%E6%AE%B5%E6%80%A7%E4%BB%8B%E7%BB%8D%E3%80%81%E6%B1%87%E6%80%BB%E3%80%81%E5%88%86%E6%9E%90%E4%B8%8E%E6%80%9D%E8%80%83/640-173908039093171.webp" class="qwjjztsyctqg" alt="图片">
+
+<p>1月27日，据Information网站，Meta被曝组建 4 个小组专门研究DeepSeek 模型。</p>
+<p>1月27日夜间，DeepSeek 暴击华尔街，欧美科技股市值或蒸发 1.2 万亿美元北京时间。英伟达股价下跌16.97%。市场分析认为，此次美国股市震荡的核心原因是DeepSeek的最新突破，<strong>动摇了美国科技行业的地位</strong>。</p>
+<style>.fkkrzxwoublg{zoom:33%;}</style><img src="/2025/01/28/%E6%8E%A8%E7%90%86%E5%A4%A7%E7%88%86%E7%82%B8%EF%BC%9A%E5%9B%BD%E5%86%85%E6%8E%A8%E7%90%86%E6%A8%A1%E5%9E%8B%E7%9A%84%E9%98%B6%E6%AE%B5%E6%80%A7%E4%BB%8B%E7%BB%8D%E3%80%81%E6%B1%87%E6%80%BB%E3%80%81%E5%88%86%E6%9E%90%E4%B8%8E%E6%80%9D%E8%80%83/640.webp" class="fkkrzxwoublg" alt="图片">
+
+<p>关于R1的一些个人观点，其最大的贡献证明了LLM可以<strong>在无监督数据的情况下，通过强化学习提高推理能力</strong>。</p>
+<p>而至今DeepSeek突然爆火全球的一个根本原因在于他走了真正的”OpenAI“之路。</p>
+<p>DeepSeek R1的成功证明，强化学习可以在没有大量监督数据的情况下提升模型的推理能力。这一突破性发现可能会重新定义未来AI训练的方法论，使得AI训练<strong>更加高效和经济</strong>。</p>
+<hr>
+<p><strong>04 思考</strong></p>
+<p>个人认为推理模型的爆发不是偶然，而是AI发展的必然阶段。</p>
+<p>从”知识型”到”推理型”的转变，AI正在从简单的模式识别向真正的智能思考迈进。推理能力将成为区分下一代AI模型的关键指标。</p>
+<p>更为重要的是，当AI Agent爆发成为共识，推理模型无疑为其赋能，我在之前一篇文章提及与分析（<a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s?__biz=Mzk1NzM4NzQ4Mg==&mid=2247483793&idx=1&sn=ca192b742a932e5b71238437ae2e7fe4&scene=21#wechat_redirect">从Google与Anthropic看2025 Agent势不可挡的爆发——AI时代的入口</a>）。</p>
+<p>只有具备深度推理能力的模型，才能：理解复杂任务的上下文和目标，制定合理的执行计划，在执行过程中进行实时决策调整，处理意外情况并作出适当反应。</p>
+<p>当“星际之门”计划的发布，AI技术竞争已经上升到了国家竞争层面。</p>
+<p>国产推理模型的快速发展,特别是DeepSeek R1引发的全球关注，表明中国AI企业已经找到了一条独特的技术路径。</p>
+<p>通过创新的训练方法和算法突破，我们有望在新一代AI竞争中占据有利位置。</p>
+<p>我的结论：</p>
+<ol>
+<li><strong>推理能力</strong>将成为评价AI模型的核心指标之一</li>
+<li><strong>强化学习</strong>技术将在AI训练中发挥更重要作用</li>
+<li><strong>Agent技术</strong>将基于推理能力获得质的飞跃</li>
+<li><strong>全球AI竞争格局</strong>可能因技术创新而重塑</li>
+</ol>
+<p>来自AI总结：</p>
+<blockquote>
+<p>本文介绍了国产AI推理模型的发展，重点对标OpenAI的o1模型。</p>
+<p>文章提到了一些核心技术，如思维链和强化学习，帮助模型提升推理能力。</p>
+<p>列举了几款国产模型，如Skywork o1、GLM-Zero、Step R-mini、Kimi K1.5、DeepSeek R1介绍了它们的技术创新。</p>
+<p>其中，DeepSeek R1通过强化学习显著提升了推理能力，引发全球关注。</p>
+<p>文章认为，推理能力将成为AI的核心指标，强化学习将发挥更大作用，国产模型的进展表明中国在AI领域取得了重要突破。</p>
+</blockquote>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/AI/" rel="tag"># AI</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2025/01/24/%E4%BB%8E%E4%BB%A3%E7%A0%81%E5%88%B0%E4%B8%8A%E7%BA%BF%EF%BC%9AAI%E5%BC%80%E5%8F%91%E9%A1%B9%E7%9B%AE%E9%83%A8%E7%BD%B2%E7%A4%BA%E4%BE%8B/" rel="prev" title="从代码到上线：AI开发项目部署示例">
+                  <i class="fa fa-angle-left"></i> 从代码到上线：AI开发项目部署示例
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2025/02/09/OpenAI%E7%9A%84%E8%87%AA%E4%BF%A1%E4%B8%8E%E5%8D%B1%E6%9C%BA%EF%BC%9A%E5%BC%80%E6%BA%90%E6%B5%AA%E6%BD%AE%E4%B8%8B%E7%9A%84AGI%E5%8F%99%E4%BA%8B%E4%B8%8E%E7%AB%9E%E4%BA%89%E6%A0%BC%E5%B1%80/" rel="next" title="OpenAI的自信与危机：开源浪潮下的AGI叙事与竞争格局">
+                  OpenAI的自信与危机：开源浪潮下的AGI叙事与竞争格局 <i class="fa fa-angle-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="copyright">
+    &copy; 
+    <span itemprop="copyrightYear">2025</span>
+    <span class="with-love">
+      <i class="fa fa-heart"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">wowyuarm</span>
+  </div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+      <span>站点总字数：</span>
+    <span title="站点总字数">21k</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+      <span>站点阅读时长 &asymp;</span>
+    <span title="站点阅读时长">39 分钟</span>
+  </span>
+</div>
+<div class="busuanzi-count">
+    <span class="post-meta-item" id="busuanzi_container_site_uv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+    </div>
+  </footer>
+
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+  <div class="sidebar-dimmer"></div>
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/sidebar.js"></script><script src="/js/next-boot.js"></script>
+
+  
+
+
+
+
+
+
+  
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+
+</body>
+</html>
