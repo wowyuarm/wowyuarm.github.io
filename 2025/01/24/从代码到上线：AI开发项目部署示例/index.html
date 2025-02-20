@@ -140,7 +140,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">11</span>
+          <span class="site-state-item-count">12</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -271,20 +271,20 @@
 <p>我以一个小项目为例，使用Cursor与glm做的一个<em>个性化中文名生成网站</em>，通过用户输入基本信息并完成一些题目，将信息与答案输入给大模型，返回一个综合性的中文名。</p>
 <p>我之前已经做了一个这样的网站，但还没有上线。（<a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s?__biz=Mzk1NzM4NzQ4Mg==&mid=2247483822&idx=1&sn=882e92b9a89764c14c9802c723fc9590&scene=21#wechat_redirect">利用媒体与代码杠杆——小红书+Cursor+glm</a>）</p>
 <p>本文利用Cursor的Agent模式一次性完成。</p>
-<style>.dlskjjyaqcou{zoom:80%;}</style><img src="/2025/01/24/%E4%BB%8E%E4%BB%A3%E7%A0%81%E5%88%B0%E4%B8%8A%E7%BA%BF%EF%BC%9AAI%E5%BC%80%E5%8F%91%E9%A1%B9%E7%9B%AE%E9%83%A8%E7%BD%B2%E7%A4%BA%E4%BE%8B/640.webp" class="dlskjjyaqcou" alt="图片">
+<style>.vfgdweshfebv{zoom:80%;}</style><img src="/2025/01/24/%E4%BB%8E%E4%BB%A3%E7%A0%81%E5%88%B0%E4%B8%8A%E7%BA%BF%EF%BC%9AAI%E5%BC%80%E5%8F%91%E9%A1%B9%E7%9B%AE%E9%83%A8%E7%BD%B2%E7%A4%BA%E4%BE%8B/640.webp" class="vfgdweshfebv" alt="图片">
 
 <p><em>agent模式需要手动切换</em></p>
 <p>错误相较于composer模式少，API调用一次完成，而且为调用的大模型写的prompt也由cursor_agent完成。</p>
 <p>看一下效果：</p>
-<style>.cfbphhizwhrr{zoom:67%;}</style><img src="/2025/01/24/%E4%BB%8E%E4%BB%A3%E7%A0%81%E5%88%B0%E4%B8%8A%E7%BA%BF%EF%BC%9AAI%E5%BC%80%E5%8F%91%E9%A1%B9%E7%9B%AE%E9%83%A8%E7%BD%B2%E7%A4%BA%E4%BE%8B/640-173907978859391.webp" class="cfbphhizwhrr" alt="图片">
+<style>.mvehpopqqgjj{zoom:67%;}</style><img src="/2025/01/24/%E4%BB%8E%E4%BB%A3%E7%A0%81%E5%88%B0%E4%B8%8A%E7%BA%BF%EF%BC%9AAI%E5%BC%80%E5%8F%91%E9%A1%B9%E7%9B%AE%E9%83%A8%E7%BD%B2%E7%A4%BA%E4%BE%8B/640-173907978859391.webp" class="mvehpopqqgjj" alt="图片">
 
-<style>.xurwvmvrjtzr{zoom:67%;}</style><img src="/2025/01/24/%E4%BB%8E%E4%BB%A3%E7%A0%81%E5%88%B0%E4%B8%8A%E7%BA%BF%EF%BC%9AAI%E5%BC%80%E5%8F%91%E9%A1%B9%E7%9B%AE%E9%83%A8%E7%BD%B2%E7%A4%BA%E4%BE%8B/640-173907978859392.webp" class="xurwvmvrjtzr" alt="图片">
+<style>.npmounozqfyx{zoom:67%;}</style><img src="/2025/01/24/%E4%BB%8E%E4%BB%A3%E7%A0%81%E5%88%B0%E4%B8%8A%E7%BA%BF%EF%BC%9AAI%E5%BC%80%E5%8F%91%E9%A1%B9%E7%9B%AE%E9%83%A8%E7%BD%B2%E7%A4%BA%E4%BE%8B/640-173907978859392.webp" class="npmounozqfyx" alt="图片">
 
-<style>.ywbluccklgcg{zoom:67%;}</style><img src="/2025/01/24/%E4%BB%8E%E4%BB%A3%E7%A0%81%E5%88%B0%E4%B8%8A%E7%BA%BF%EF%BC%9AAI%E5%BC%80%E5%8F%91%E9%A1%B9%E7%9B%AE%E9%83%A8%E7%BD%B2%E7%A4%BA%E4%BE%8B/640-173907978859393.webp" class="ywbluccklgcg" alt="图片">
+<style>.wfontvvevpgm{zoom:67%;}</style><img src="/2025/01/24/%E4%BB%8E%E4%BB%A3%E7%A0%81%E5%88%B0%E4%B8%8A%E7%BA%BF%EF%BC%9AAI%E5%BC%80%E5%8F%91%E9%A1%B9%E7%9B%AE%E9%83%A8%E7%BD%B2%E7%A4%BA%E4%BE%8B/640-173907978859393.webp" class="wfontvvevpgm" alt="图片">
 
-<style>.kplhimcsouwb{zoom:67%;}</style><img src="/2025/01/24/%E4%BB%8E%E4%BB%A3%E7%A0%81%E5%88%B0%E4%B8%8A%E7%BA%BF%EF%BC%9AAI%E5%BC%80%E5%8F%91%E9%A1%B9%E7%9B%AE%E9%83%A8%E7%BD%B2%E7%A4%BA%E4%BE%8B/640-173907978859394.webp" class="kplhimcsouwb" alt="图片">
+<style>.icbkfxspvjks{zoom:67%;}</style><img src="/2025/01/24/%E4%BB%8E%E4%BB%A3%E7%A0%81%E5%88%B0%E4%B8%8A%E7%BA%BF%EF%BC%9AAI%E5%BC%80%E5%8F%91%E9%A1%B9%E7%9B%AE%E9%83%A8%E7%BD%B2%E7%A4%BA%E4%BE%8B/640-173907978859394.webp" class="icbkfxspvjks" alt="图片">
 
-<style>.kmdtoeewyqpu{zoom:67%;}</style><img src="/2025/01/24/%E4%BB%8E%E4%BB%A3%E7%A0%81%E5%88%B0%E4%B8%8A%E7%BA%BF%EF%BC%9AAI%E5%BC%80%E5%8F%91%E9%A1%B9%E7%9B%AE%E9%83%A8%E7%BD%B2%E7%A4%BA%E4%BE%8B/640-173907978859395.webp" class="kmdtoeewyqpu" alt="图片">
+<style>.kbhqblqkwvpe{zoom:67%;}</style><img src="/2025/01/24/%E4%BB%8E%E4%BB%A3%E7%A0%81%E5%88%B0%E4%B8%8A%E7%BA%BF%EF%BC%9AAI%E5%BC%80%E5%8F%91%E9%A1%B9%E7%9B%AE%E9%83%A8%E7%BD%B2%E7%A4%BA%E4%BE%8B/640-173907978859395.webp" class="kbhqblqkwvpe" alt="图片">
 
 <p><em>由Cursor自主完成的README.md文档</em></p>
 <hr>
@@ -295,35 +295,35 @@
 <p>- 购买<strong>域名</strong>并解析到Vercel服务器上</p>
 <p>如果你对这些词语有些陌生，建议你去看一下上一篇文章（<a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s?__biz=Mzk1NzM4NzQ4Mg==&mid=2247483855&idx=1&sn=54c7995558b240cf31f246f7aea5c231&scene=21#wechat_redirect">从代码到上线：我总结的AI开发全过程</a>）</p>
 <p><strong>Git+Github：</strong></p>
-<style>.oxqyhmgrfcet{zoom:67%;}</style><img src="/2025/01/24/%E4%BB%8E%E4%BB%A3%E7%A0%81%E5%88%B0%E4%B8%8A%E7%BA%BF%EF%BC%9AAI%E5%BC%80%E5%8F%91%E9%A1%B9%E7%9B%AE%E9%83%A8%E7%BD%B2%E7%A4%BA%E4%BE%8B/640-173907978859396.webp" class="oxqyhmgrfcet" alt="图片">
+<style>.rqiwbngwfrvf{zoom:67%;}</style><img src="/2025/01/24/%E4%BB%8E%E4%BB%A3%E7%A0%81%E5%88%B0%E4%B8%8A%E7%BA%BF%EF%BC%9AAI%E5%BC%80%E5%8F%91%E9%A1%B9%E7%9B%AE%E9%83%A8%E7%BD%B2%E7%A4%BA%E4%BE%8B/640-173907978859396.webp" class="rqiwbngwfrvf" alt="图片">
 
 <p>在GitHub创建好仓库，并使用Git将项目推送到仓库中（遇到问题可以求助chat模式）</p>
-<style>.hkeplvlpxpww{zoom:67%;}</style><img src="/2025/01/24/%E4%BB%8E%E4%BB%A3%E7%A0%81%E5%88%B0%E4%B8%8A%E7%BA%BF%EF%BC%9AAI%E5%BC%80%E5%8F%91%E9%A1%B9%E7%9B%AE%E9%83%A8%E7%BD%B2%E7%A4%BA%E4%BE%8B/640-173907978859397.webp" class="hkeplvlpxpww" alt="图片">
+<style>.frkypgibpgne{zoom:67%;}</style><img src="/2025/01/24/%E4%BB%8E%E4%BB%A3%E7%A0%81%E5%88%B0%E4%B8%8A%E7%BA%BF%EF%BC%9AAI%E5%BC%80%E5%8F%91%E9%A1%B9%E7%9B%AE%E9%83%A8%E7%BD%B2%E7%A4%BA%E4%BE%8B/640-173907978859397.webp" class="frkypgibpgne" alt="图片">
 
 <p>在终端中通过Git命令完成推送</p>
-<style>.pxppykzmjugh{zoom:67%;}</style><img src="/2025/01/24/%E4%BB%8E%E4%BB%A3%E7%A0%81%E5%88%B0%E4%B8%8A%E7%BA%BF%EF%BC%9AAI%E5%BC%80%E5%8F%91%E9%A1%B9%E7%9B%AE%E9%83%A8%E7%BD%B2%E7%A4%BA%E4%BE%8B/640-173907978859398.webp" class="pxppykzmjugh" alt="图片">
+<style>.cpjjjohpslic{zoom:67%;}</style><img src="/2025/01/24/%E4%BB%8E%E4%BB%A3%E7%A0%81%E5%88%B0%E4%B8%8A%E7%BA%BF%EF%BC%9AAI%E5%BC%80%E5%8F%91%E9%A1%B9%E7%9B%AE%E9%83%A8%E7%BD%B2%E7%A4%BA%E4%BE%8B/640-173907978859398.webp" class="cpjjjohpslic" alt="图片">
 
 <hr>
 <p><strong>Vercel：</strong></p>
 <p>注册完成后，可以直接与Github账号绑定，并选择仓库导入。</p>
-<style>.xmgkwpgpgilf{zoom:67%;}</style><img src="/2025/01/24/%E4%BB%8E%E4%BB%A3%E7%A0%81%E5%88%B0%E4%B8%8A%E7%BA%BF%EF%BC%9AAI%E5%BC%80%E5%8F%91%E9%A1%B9%E7%9B%AE%E9%83%A8%E7%BD%B2%E7%A4%BA%E4%BE%8B/640-173907978859399.webp" class="xmgkwpgpgilf" alt="图片">
+<style>.adfpavibyvmg{zoom:67%;}</style><img src="/2025/01/24/%E4%BB%8E%E4%BB%A3%E7%A0%81%E5%88%B0%E4%B8%8A%E7%BA%BF%EF%BC%9AAI%E5%BC%80%E5%8F%91%E9%A1%B9%E7%9B%AE%E9%83%A8%E7%BD%B2%E7%A4%BA%E4%BE%8B/640-173907978859399.webp" class="adfpavibyvmg" alt="图片">
 
 <p>导入的项目由Vercel自动识别并部署。比如，我们使用的next.js开源web框架就是由vercel开发的，自然可以很好的识别并部署。</p>
 <p>另外，我们使用的大模型API key会由Cursor自动创建一个环境变量.env文件（安全）来存储。</p>
 <p>我们需要单独在Vercel中设置key：</p>
-<style>.uvynnpnwudyc{zoom:67%;}</style><img src="/2025/01/24/%E4%BB%8E%E4%BB%A3%E7%A0%81%E5%88%B0%E4%B8%8A%E7%BA%BF%EF%BC%9AAI%E5%BC%80%E5%8F%91%E9%A1%B9%E7%9B%AE%E9%83%A8%E7%BD%B2%E7%A4%BA%E4%BE%8B/640-1739079788593100.webp" class="uvynnpnwudyc" alt="图片">
+<style>.zaadkvykttmh{zoom:67%;}</style><img src="/2025/01/24/%E4%BB%8E%E4%BB%A3%E7%A0%81%E5%88%B0%E4%B8%8A%E7%BA%BF%EF%BC%9AAI%E5%BC%80%E5%8F%91%E9%A1%B9%E7%9B%AE%E9%83%A8%E7%BD%B2%E7%A4%BA%E4%BE%8B/640-1739079788593100.webp" class="zaadkvykttmh" alt="图片">
 
 <p>等待部署完成：</p>
-<style>.zgqrfdzvmstu{zoom:67%;}</style><img src="/2025/01/24/%E4%BB%8E%E4%BB%A3%E7%A0%81%E5%88%B0%E4%B8%8A%E7%BA%BF%EF%BC%9AAI%E5%BC%80%E5%8F%91%E9%A1%B9%E7%9B%AE%E9%83%A8%E7%BD%B2%E7%A4%BA%E4%BE%8B/640-1739079788593101.webp" class="zgqrfdzvmstu" alt="图片">
+<style>.abqklnhotejs{zoom:67%;}</style><img src="/2025/01/24/%E4%BB%8E%E4%BB%A3%E7%A0%81%E5%88%B0%E4%B8%8A%E7%BA%BF%EF%BC%9AAI%E5%BC%80%E5%8F%91%E9%A1%B9%E7%9B%AE%E9%83%A8%E7%BD%B2%E7%A4%BA%E4%BE%8B/640-1739079788593101.webp" class="abqklnhotejs" alt="图片">
 
 <p>就可以直接访问vercel提供的网址了。</p>
 <p><strong>绑定域名：</strong></p>
 <p>另外，vercel提供的域名需要科学上网，想要解除屏蔽（DNS污染）需要绑定一个域名，可以在云平台购买（阿里云、腾讯云等）。</p>
 <p>我购买的域名cn-name.xyz，一年5.5元。新用户还有优惠。</p>
 <p>接下来就需要将域名映射到网站IP上：</p>
-<style>.egxggtlnukwi{zoom:67%;}</style><img src="/2025/01/24/%E4%BB%8E%E4%BB%A3%E7%A0%81%E5%88%B0%E4%B8%8A%E7%BA%BF%EF%BC%9AAI%E5%BC%80%E5%8F%91%E9%A1%B9%E7%9B%AE%E9%83%A8%E7%BD%B2%E7%A4%BA%E4%BE%8B/640-1739079788593102.webp" class="egxggtlnukwi" alt="图片">
+<style>.ryicioyeztmt{zoom:67%;}</style><img src="/2025/01/24/%E4%BB%8E%E4%BB%A3%E7%A0%81%E5%88%B0%E4%B8%8A%E7%BA%BF%EF%BC%9AAI%E5%BC%80%E5%8F%91%E9%A1%B9%E7%9B%AE%E9%83%A8%E7%BD%B2%E7%A4%BA%E4%BE%8B/640-1739079788593102.webp" class="ryicioyeztmt" alt="图片">
 
-<style>.wtjjsdjcwlgh{zoom:67%;}</style><img src="/2025/01/24/%E4%BB%8E%E4%BB%A3%E7%A0%81%E5%88%B0%E4%B8%8A%E7%BA%BF%EF%BC%9AAI%E5%BC%80%E5%8F%91%E9%A1%B9%E7%9B%AE%E9%83%A8%E7%BD%B2%E7%A4%BA%E4%BE%8B/640-1739079788593103.webp" class="wtjjsdjcwlgh" alt="图片">
+<style>.exvgitmskskr{zoom:67%;}</style><img src="/2025/01/24/%E4%BB%8E%E4%BB%A3%E7%A0%81%E5%88%B0%E4%B8%8A%E7%BA%BF%EF%BC%9AAI%E5%BC%80%E5%8F%91%E9%A1%B9%E7%9B%AE%E9%83%A8%E7%BD%B2%E7%A4%BA%E4%BE%8B/640-1739079788593103.webp" class="exvgitmskskr" alt="图片">
 
 <p>这样，网站就上线了。</p>
 <p>如果想要增加网站曝光量，需要做SEO（搜索引擎优化），这一点，明确告诉cursor来优化。</p>
@@ -400,14 +400,14 @@
       <i class="fa fa-chart-line"></i>
     </span>
       <span>站点总字数：</span>
-    <span title="站点总字数">21k</span>
+    <span title="站点总字数">23k</span>
   </span>
   <span class="post-meta-item">
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span>站点阅读时长 &asymp;</span>
-    <span title="站点阅读时长">39 分钟</span>
+    <span title="站点阅读时长">42 分钟</span>
   </span>
 </div>
 <div class="busuanzi-count">
