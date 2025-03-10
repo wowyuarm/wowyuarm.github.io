@@ -18,12 +18,12 @@
 
 <script class="next-config" data-name="main" type="application/json">{"hostname":"www.wowyuarm.top","root":"/","images":"/images","scheme":"Gemini","darkmode":false,"version":"8.21.1","exturl":false,"sidebar":{"position":"left","width_expanded":320,"width_dual_column":240,"display":"post","padding":18,"offset":12},"hljswrap":true,"copycode":{"enable":false,"style":null},"fold":{"enable":false,"height":500},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"duration":200,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}}</script><script src="/js/config.js"></script>
 
-    <meta name="description" content="01 新春之际，大模型厂商抢着提前回家过年，有Kimi与DeepSeek在同一天发布对标o1的推理模型。在这之前，还有许多类o1推理模型。 本文探索国产推理模型的发展与思考。 02介绍部分类o1推理模型的核心技术。 03梳理能够对标o1-preview、o1-mini或o1正式版的模型，简要介绍其技术或工程创新之处。 04结合思考，窥探模型发展新格局。 .swbrbdeshtau{zoom: 33">
+    <meta name="description" content="01 新春之际，大模型厂商抢着提前回家过年，有Kimi与DeepSeek在同一天发布对标o1的推理模型。在这之前，还有许多类o1推理模型。 本文探索国产推理模型的发展与思考。 02介绍部分类o1推理模型的核心技术。 03梳理能够对标o1-preview、o1-mini或o1正式版的模型，简要介绍其技术或工程创新之处。 04结合思考，窥探模型发展新格局。 .jxlvsfiprxhb{zoom: 33">
 <meta property="og:type" content="article">
 <meta property="og:title" content="推理大爆炸：国内推理模型的阶段性介绍、汇总、分析与思考">
 <meta property="og:url" content="http://www.wowyuarm.top/2025/01/28/%E6%8E%A8%E7%90%86%E5%A4%A7%E7%88%86%E7%82%B8%EF%BC%9A%E5%9B%BD%E5%86%85%E6%8E%A8%E7%90%86%E6%A8%A1%E5%9E%8B%E7%9A%84%E9%98%B6%E6%AE%B5%E6%80%A7%E4%BB%8B%E7%BB%8D%E3%80%81%E6%B1%87%E6%80%BB%E3%80%81%E5%88%86%E6%9E%90%E4%B8%8E%E6%80%9D%E8%80%83/index.html">
 <meta property="og:site_name" content="云隐孤星">
-<meta property="og:description" content="01 新春之际，大模型厂商抢着提前回家过年，有Kimi与DeepSeek在同一天发布对标o1的推理模型。在这之前，还有许多类o1推理模型。 本文探索国产推理模型的发展与思考。 02介绍部分类o1推理模型的核心技术。 03梳理能够对标o1-preview、o1-mini或o1正式版的模型，简要介绍其技术或工程创新之处。 04结合思考，窥探模型发展新格局。 .swbrbdeshtau{zoom: 33">
+<meta property="og:description" content="01 新春之际，大模型厂商抢着提前回家过年，有Kimi与DeepSeek在同一天发布对标o1的推理模型。在这之前，还有许多类o1推理模型。 本文探索国产推理模型的发展与思考。 02介绍部分类o1推理模型的核心技术。 03梳理能够对标o1-preview、o1-mini或o1正式版的模型，简要介绍其技术或工程创新之处。 04结合思考，窥探模型发展新格局。 .jxlvsfiprxhb{zoom: 33">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="http://www.wowyuarm.top/2025/01/28/%E6%8E%A8%E7%90%86%E5%A4%A7%E7%88%86%E7%82%B8%EF%BC%9A%E5%9B%BD%E5%86%85%E6%8E%A8%E7%90%86%E6%A8%A1%E5%9E%8B%E7%9A%84%E9%98%B6%E6%AE%B5%E6%80%A7%E4%BB%8B%E7%BB%8D%E3%80%81%E6%B1%87%E6%80%BB%E3%80%81%E5%88%86%E6%9E%90%E4%B8%8E%E6%80%9D%E8%80%83/640-173908039093166.webp">
 <meta property="og:image" content="http://www.wowyuarm.top/2025/01/28/%E6%8E%A8%E7%90%86%E5%A4%A7%E7%88%86%E7%82%B8%EF%BC%9A%E5%9B%BD%E5%86%85%E6%8E%A8%E7%90%86%E6%A8%A1%E5%9E%8B%E7%9A%84%E9%98%B6%E6%AE%B5%E6%80%A7%E4%BB%8B%E7%BB%8D%E3%80%81%E6%B1%87%E6%80%BB%E3%80%81%E5%88%86%E6%9E%90%E4%B8%8E%E6%80%9D%E8%80%83/640-173908039093167.webp">
@@ -250,7 +250,7 @@
 <p>02介绍部分类o1推理模型的核心技术。</p>
 <p>03梳理能够对标o1-preview、o1-mini或o1正式版的模型，简要介绍其技术或工程创新之处。</p>
 <p>04结合思考，窥探模型发展新格局。</p>
-<style>.swbrbdeshtau{zoom: 33%;}</style><img src="/2025/01/28/%E6%8E%A8%E7%90%86%E5%A4%A7%E7%88%86%E7%82%B8%EF%BC%9A%E5%9B%BD%E5%86%85%E6%8E%A8%E7%90%86%E6%A8%A1%E5%9E%8B%E7%9A%84%E9%98%B6%E6%AE%B5%E6%80%A7%E4%BB%8B%E7%BB%8D%E3%80%81%E6%B1%87%E6%80%BB%E3%80%81%E5%88%86%E6%9E%90%E4%B8%8E%E6%80%9D%E8%80%83/640-173908039093166.webp" class="swbrbdeshtau" alt="图片">
+<style>.jxlvsfiprxhb{zoom: 33%;}</style><img src="/2025/01/28/%E6%8E%A8%E7%90%86%E5%A4%A7%E7%88%86%E7%82%B8%EF%BC%9A%E5%9B%BD%E5%86%85%E6%8E%A8%E7%90%86%E6%A8%A1%E5%9E%8B%E7%9A%84%E9%98%B6%E6%AE%B5%E6%80%A7%E4%BB%8B%E7%BB%8D%E3%80%81%E6%B1%87%E6%80%BB%E3%80%81%E5%88%86%E6%9E%90%E4%B8%8E%E6%80%9D%E8%80%83/640-173908039093166.webp" class="jxlvsfiprxhb" alt="图片">
 
 <hr>
 <span id="more"></span>
@@ -278,7 +278,7 @@
 <p>采用模块化的树形结构推理，将模型回答进行自动化分层输出，并<strong>在推理过程中穿插</strong>反思和验证。</p>
 <p>其他技术特点包括推理反思能力训练、推理能力强化学习和推理planning等。</p>
 <p>作为国内首款具备中文逻辑推理能力的o1模型，Skywork o1在模型输出上内生了思考、计划、反思等高级能力，实现了推理能力的显著提升，标志着中国在AI领域取得了新的突破。</p>
-<style>.ymoyyjknermk{zoom:50%;}</style><img src="/2025/01/28/%E6%8E%A8%E7%90%86%E5%A4%A7%E7%88%86%E7%82%B8%EF%BC%9A%E5%9B%BD%E5%86%85%E6%8E%A8%E7%90%86%E6%A8%A1%E5%9E%8B%E7%9A%84%E9%98%B6%E6%AE%B5%E6%80%A7%E4%BB%8B%E7%BB%8D%E3%80%81%E6%B1%87%E6%80%BB%E3%80%81%E5%88%86%E6%9E%90%E4%B8%8E%E6%80%9D%E8%80%83/640-173908039093167.webp" class="ymoyyjknermk" alt="图片">
+<style>.gifrntslqtqg{zoom:50%;}</style><img src="/2025/01/28/%E6%8E%A8%E7%90%86%E5%A4%A7%E7%88%86%E7%82%B8%EF%BC%9A%E5%9B%BD%E5%86%85%E6%8E%A8%E7%90%86%E6%A8%A1%E5%9E%8B%E7%9A%84%E9%98%B6%E6%AE%B5%E6%80%A7%E4%BB%8B%E7%BB%8D%E3%80%81%E6%B1%87%E6%80%BB%E3%80%81%E5%88%86%E6%9E%90%E4%B8%8E%E6%80%9D%E8%80%83/640-173908039093167.webp" class="gifrntslqtqg" alt="图片">
 
 
 
@@ -289,7 +289,7 @@
 <p>具备一定的多模态理解能力。</p>
 <p>显著提升了处理专家级任务的能力。</p>
 <p>在 AIME 2024、MATH500 和 LiveCodeBench 等权威评测中，GLM-Zero 的表现与 OpenAI 的 o1-Preview相当。</p>
-<style>.mvqvsgwwkwts{zoom:50%;}</style><img src="/2025/01/28/%E6%8E%A8%E7%90%86%E5%A4%A7%E7%88%86%E7%82%B8%EF%BC%9A%E5%9B%BD%E5%86%85%E6%8E%A8%E7%90%86%E6%A8%A1%E5%9E%8B%E7%9A%84%E9%98%B6%E6%AE%B5%E6%80%A7%E4%BB%8B%E7%BB%8D%E3%80%81%E6%B1%87%E6%80%BB%E3%80%81%E5%88%86%E6%9E%90%E4%B8%8E%E6%80%9D%E8%80%83/640-173908039093168.webp" class="mvqvsgwwkwts" alt="图片">
+<style>.umsbsxurthcn{zoom:50%;}</style><img src="/2025/01/28/%E6%8E%A8%E7%90%86%E5%A4%A7%E7%88%86%E7%82%B8%EF%BC%9A%E5%9B%BD%E5%86%85%E6%8E%A8%E7%90%86%E6%A8%A1%E5%9E%8B%E7%9A%84%E9%98%B6%E6%AE%B5%E6%80%A7%E4%BB%8B%E7%BB%8D%E3%80%81%E6%B1%87%E6%80%BB%E3%80%81%E5%88%86%E6%9E%90%E4%B8%8E%E6%80%9D%E8%80%83/640-173908039093168.webp" class="umsbsxurthcn" alt="图片">
 
 
 
@@ -299,7 +299,7 @@
 <p>在AIME和Math等数学基准测试上，成绩超过o1-preview，比肩OpenAI o1-mini。在LiveCodeBench代码任务上，效果优于o1-preview。</p>
 <p>采用<strong>慢思考</strong>和反复验证的逻辑机制。</p>
 <p>坚持模型规模扩展，正在开发更智能、更通用、综合能力更强的Step Reasoner推理模型。</p>
-<style>.yjrpdndzbubx{zoom:50%;}</style><img src="/2025/01/28/%E6%8E%A8%E7%90%86%E5%A4%A7%E7%88%86%E7%82%B8%EF%BC%9A%E5%9B%BD%E5%86%85%E6%8E%A8%E7%90%86%E6%A8%A1%E5%9E%8B%E7%9A%84%E9%98%B6%E6%AE%B5%E6%80%A7%E4%BB%8B%E7%BB%8D%E3%80%81%E6%B1%87%E6%80%BB%E3%80%81%E5%88%86%E6%9E%90%E4%B8%8E%E6%80%9D%E8%80%83/640-173908039093169.webp" class="yjrpdndzbubx" alt="图片">
+<style>.scgtdbofpoqi{zoom:50%;}</style><img src="/2025/01/28/%E6%8E%A8%E7%90%86%E5%A4%A7%E7%88%86%E7%82%B8%EF%BC%9A%E5%9B%BD%E5%86%85%E6%8E%A8%E7%90%86%E6%A8%A1%E5%9E%8B%E7%9A%84%E9%98%B6%E6%AE%B5%E6%80%A7%E4%BB%8B%E7%BB%8D%E3%80%81%E6%B1%87%E6%80%BB%E3%80%81%E5%88%86%E6%9E%90%E4%B8%8E%E6%80%9D%E8%80%83/640-173908039093169.webp" class="scgtdbofpoqi" alt="图片">
 
 
 
@@ -309,7 +309,7 @@
 <p><strong>Long2Short训练方案</strong>：将长链式思考技术（long-CoT）的优势迁移到短链式思考模型（short-CoT）中，通过长上下文扩展（将强化学习（RL）的上下文窗口扩展到128k）和策略优化改进，进一步优化模型性能。</p>
 <p>Kimi k1.5在多个基准测试中表现出色，特别是在short-CoT模式下，其数学、代码、视觉多模态和通用能力<strong>大幅超越</strong>了全球范围内短思考SOTA模型GPT-4o和Claude 3.5 Sonnet，领先幅度高达550%。</p>
 <p>国产AI大模型在<strong>多模态推理和强化学习技术方面</strong>取得了重大突破。</p>
-<style>.bwmdpuutfioy{zoom:50%;}</style><img src="/2025/01/28/%E6%8E%A8%E7%90%86%E5%A4%A7%E7%88%86%E7%82%B8%EF%BC%9A%E5%9B%BD%E5%86%85%E6%8E%A8%E7%90%86%E6%A8%A1%E5%9E%8B%E7%9A%84%E9%98%B6%E6%AE%B5%E6%80%A7%E4%BB%8B%E7%BB%8D%E3%80%81%E6%B1%87%E6%80%BB%E3%80%81%E5%88%86%E6%9E%90%E4%B8%8E%E6%80%9D%E8%80%83/640-173908039093170.webp" class="bwmdpuutfioy" alt="图片">
+<style>.jobbmndvaths{zoom:50%;}</style><img src="/2025/01/28/%E6%8E%A8%E7%90%86%E5%A4%A7%E7%88%86%E7%82%B8%EF%BC%9A%E5%9B%BD%E5%86%85%E6%8E%A8%E7%90%86%E6%A8%A1%E5%9E%8B%E7%9A%84%E9%98%B6%E6%AE%B5%E6%80%A7%E4%BB%8B%E7%BB%8D%E3%80%81%E6%B1%87%E6%80%BB%E3%80%81%E5%88%86%E6%9E%90%E4%B8%8E%E6%80%9D%E8%80%83/640-173908039093170.webp" class="jobbmndvaths" alt="图片">
 
 
 
@@ -320,11 +320,11 @@
 <p>在数学、代码、自然语言推理等任务上表现卓越，<strong>性能直接对标OpenAI的o1正式版</strong>，同时价格仅为o1的几十分之一，具有极高的性价比。</p>
 <p>关于R1，多说几句。</p>
 <p>Sam刚刚发了推文正面回应：</p>
-<style>.rsrpcofwnnco{zoom: 33%;}</style><img src="/2025/01/28/%E6%8E%A8%E7%90%86%E5%A4%A7%E7%88%86%E7%82%B8%EF%BC%9A%E5%9B%BD%E5%86%85%E6%8E%A8%E7%90%86%E6%A8%A1%E5%9E%8B%E7%9A%84%E9%98%B6%E6%AE%B5%E6%80%A7%E4%BB%8B%E7%BB%8D%E3%80%81%E6%B1%87%E6%80%BB%E3%80%81%E5%88%86%E6%9E%90%E4%B8%8E%E6%80%9D%E8%80%83/640-173908039093171.webp" class="rsrpcofwnnco" alt="图片">
+<style>.cgbklxgtrlui{zoom: 33%;}</style><img src="/2025/01/28/%E6%8E%A8%E7%90%86%E5%A4%A7%E7%88%86%E7%82%B8%EF%BC%9A%E5%9B%BD%E5%86%85%E6%8E%A8%E7%90%86%E6%A8%A1%E5%9E%8B%E7%9A%84%E9%98%B6%E6%AE%B5%E6%80%A7%E4%BB%8B%E7%BB%8D%E3%80%81%E6%B1%87%E6%80%BB%E3%80%81%E5%88%86%E6%9E%90%E4%B8%8E%E6%80%9D%E8%80%83/640-173908039093171.webp" class="cgbklxgtrlui" alt="图片">
 
 <p>1月27日，据Information网站，Meta被曝组建 4 个小组专门研究DeepSeek 模型。</p>
 <p>1月27日夜间，DeepSeek 暴击华尔街，欧美科技股市值或蒸发 1.2 万亿美元北京时间。英伟达股价下跌16.97%。市场分析认为，此次美国股市震荡的核心原因是DeepSeek的最新突破，<strong>动摇了美国科技行业的地位</strong>。</p>
-<style>.jnnelyerbdvr{zoom:33%;}</style><img src="/2025/01/28/%E6%8E%A8%E7%90%86%E5%A4%A7%E7%88%86%E7%82%B8%EF%BC%9A%E5%9B%BD%E5%86%85%E6%8E%A8%E7%90%86%E6%A8%A1%E5%9E%8B%E7%9A%84%E9%98%B6%E6%AE%B5%E6%80%A7%E4%BB%8B%E7%BB%8D%E3%80%81%E6%B1%87%E6%80%BB%E3%80%81%E5%88%86%E6%9E%90%E4%B8%8E%E6%80%9D%E8%80%83/640.webp" class="jnnelyerbdvr" alt="图片">
+<style>.hthlwlvhjffu{zoom:33%;}</style><img src="/2025/01/28/%E6%8E%A8%E7%90%86%E5%A4%A7%E7%88%86%E7%82%B8%EF%BC%9A%E5%9B%BD%E5%86%85%E6%8E%A8%E7%90%86%E6%A8%A1%E5%9E%8B%E7%9A%84%E9%98%B6%E6%AE%B5%E6%80%A7%E4%BB%8B%E7%BB%8D%E3%80%81%E6%B1%87%E6%80%BB%E3%80%81%E5%88%86%E6%9E%90%E4%B8%8E%E6%80%9D%E8%80%83/640.webp" class="hthlwlvhjffu" alt="图片">
 
 <p>关于R1的一些个人观点，其最大的贡献证明了LLM可以<strong>在无监督数据的情况下，通过强化学习提高推理能力</strong>。</p>
 <p>而至今DeepSeek突然爆火全球的一个根本原因在于他走了真正的”OpenAI“之路。</p>
